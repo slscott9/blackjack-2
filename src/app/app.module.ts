@@ -6,12 +6,14 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PerfectStratPracticeComponent } from './components/perfect-strat-practice/perfect-strat-practice.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    HomeComponent
+    HomeComponent,
+    PerfectStratPracticeComponent
   ],
   imports: [
     BrowserModule,

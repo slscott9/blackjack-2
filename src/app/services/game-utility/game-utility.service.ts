@@ -9,12 +9,6 @@ export class GameUtilityService {
 
   constructor() { }
 
-  // perfectStratFirstHand(dealerCard: Card, playerCard: Card) {
-
-
-
-  // }
-
   cardTotals(cards: Card[]): number {
     let total = 0
     cards.forEach(card => {
@@ -24,7 +18,6 @@ export class GameUtilityService {
   }
 
   perfectStratFirstHand(playerCards: Card[]): string {
-
     let playerTotal = this.cardTotals(playerCards)
 
     //splits
@@ -89,9 +82,7 @@ export class GameUtilityService {
           return 'Soft 13 (A,2) doubles against dealer 5 through 6, otherwise hit.'
         }
       }
-    } else { //Hard totals
-      console.log('in else');
-      
+    } else { //Hard totals      
       if (playerTotal >= 17) {
         return '17 and up always stands.'
       } else if (playerTotal === 16) {
@@ -117,6 +108,20 @@ export class GameUtilityService {
 
     return ''
   }
+
+  determineCount(card: Card): number {
+    let cardValue = 0
+
+    if(card.name === 'ace' || card.value >= 10) {
+      cardValue = -1
+    } else if(card.value < 7) {
+      cardValue = 1
+    }
+
+    return cardValue
+  }
+
+
 
 }
 
