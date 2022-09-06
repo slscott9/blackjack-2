@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Card, cards } from 'src/app/interfaces/type';
+import { aces, Card, cards, cardsNoAces } from 'src/app/interfaces/type';
 import { GameUtilityService } from 'src/app/services/game-utility/game-utility.service';
 
 @Component({
@@ -21,6 +21,10 @@ export class PerfectStratPracticeComponent implements OnInit {
   cardCount: number = 0
   showCardCount: boolean = false;
   gameMode: string = ''
+
+  aces: Card[] = []
+  deckNoAces: Card[] = []
+
 
   constructor(
     private fb: FormBuilder,
@@ -43,13 +47,18 @@ export class PerfectStratPracticeComponent implements OnInit {
     }
   }
 
-  getRandomInt(max: number) {
+  getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
   }
 
   startGame(playerCount: number, gameMode: string) {
     this.gameMode = gameMode;
-    this.deck = cards
+    if(this.gameMode === 'Normal' || this.gameMode === 'Pairs') {
+      this.deck = cards
+    } else if(this.gameMode === 'Soft totals') {
+      this.deck = cardsNoAces
+      this.aces = aces      
+    }
     this.shuffle()
 
     for (let i = 0; i < playerCount; i++) {
@@ -57,9 +66,15 @@ export class PerfectStratPracticeComponent implements OnInit {
     }
 
     for (let i = 0; i < playerCount; i++) {
-      this.playerCards.push(
-        [this.deck[this.deckNumber += 1]]
-      )
+      if (this.gameMode === 'Normal' || this.gameMode === 'Pairs') {
+        this.playerCards.push(
+          [this.deck[this.deckNumber += 1]]
+        )
+      } else if (this.gameMode === 'Soft totals') {
+        this.playerCards.push(
+          [this.aces[this.getRandomInt(4)]]
+        )
+      }
       this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
     }
 
@@ -70,7 +85,47 @@ export class PerfectStratPracticeComponent implements OnInit {
         this.playerCards[i].push(
           this.getPair(this.playerCards[i])
         )
-      } else if (this.gameMode === 'Normal') {
+      } else if (this.gameMode === 'Normal' || this.gameMode === 'Soft totals') {
+        this.playerCards[i].push(
+          this.deck[this.deckNumber += 1]
+        )
+      }
+      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
+    }
+    this.gameStarted = true;
+  }
+
+  dealCards() {    
+    this.dealerCards = []
+
+    for (let i = 0; i < this.playerCards.length; i++) {
+      this.playerCards[i] = []
+    }
+
+    this.clearPerfectStratIndices()
+
+    for (let i = 0; i < this.playerCards.length; i++) {
+      if (this.gameMode === 'Normal' || this.gameMode === 'Pairs') {        
+        this.playerCards[i].push(
+          this.deck[this.deckNumber += 1]
+        )
+      } else if (this.gameMode === 'Soft totals') {
+        this.playerCards[i].push(
+          this.aces[this.getRandomInt(4)]
+        )
+      }
+
+      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
+    }
+
+    this.addDealerCard(true)
+
+    for (let i = 0; i < this.playerCards.length; i++) {
+      if (this.gameMode === 'Pairs') {
+        this.playerCards[i].push(
+          this.getPair(this.playerCards[i])
+        )
+      } else if (this.gameMode === 'Normal' || this.gameMode === 'Soft totals') {
         this.playerCards[i].push(
           this.deck[this.deckNumber += 1]
         )
@@ -78,15 +133,12 @@ export class PerfectStratPracticeComponent implements OnInit {
 
       this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
     }
-
-    this.gameStarted = true;
   }
 
   addDealerCard(addDealerCard: boolean) {
     if (addDealerCard === true) {
       this.dealerCards.push(this.deck[this.deckNumber += 1])
       this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
-
     }
   }
 
@@ -110,41 +162,6 @@ export class PerfectStratPracticeComponent implements OnInit {
     return this.gameUtilityService.perfectStratFirstHand(this.playerCards[playerIndex])
   }
 
-  dealCards() {
-    this.dealerCards = []
-
-    for (let i = 0; i < this.playerCards.length; i++) {
-      this.playerCards[i] = []
-    }
-
-    this.clearPerfectStratIndices()
-
-    for (let i = 0; i < this.playerCards.length; i++) {
-      this.playerCards[i].push(
-        this.deck[this.deckNumber += 1]
-      )
-      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
-
-    }
-
-    this.addDealerCard(true)
-
-    for (let i = 0; i < this.playerCards.length; i++) {
-      if (this.gameMode === 'Pairs') {
-        this.playerCards[i].push(
-          this.getPair(this.playerCards[i])
-        )
-      } else if (this.gameMode === 'Normal') {
-        this.playerCards[i].push(
-          this.deck[this.deckNumber += 1]
-        )
-      }
-
-      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
-
-    }
-  }
-
   toggleCardCount() {
     this.showCardCount = !this.showCardCount
   }
@@ -154,7 +171,6 @@ export class PerfectStratPracticeComponent implements OnInit {
   }
 
   getPair(cards: Card[]): Card {
-
     let tempCard: Card = {
       name: '',
       value: 0,

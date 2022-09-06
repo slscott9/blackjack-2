@@ -23,20 +23,19 @@ export class GameUtilityService {
     //splits
     if (playerCards[0].name === playerCards[1].name) {
       if (playerCards[0].name === 'ace' && playerCards[1].name === 'ace') {
-        return 'Never split aces'
+        return 'Always split aces'
       } else if (playerCards[0].name === 'ten') {
         return 'Never split tens'
       } else if (playerCards[0].name === 'nine') {
         return 'A pair of 9’s splits against dealer 2 through 9, except for 7, otherwise stand.'
       } else if (playerCards[0].name === 'eight') {
         return 'Always split 8’s'
-
       } else if (playerCards[0].name === 'seven') {
         return 'A pair of 7’s splits against dealer 2 through 7, otherwise hit.'
       } else if (playerCards[0].name === 'six') {
         return 'A pair of 6’s splits against dealer 2 through 6, otherwise hit.'
       } else if (playerCards[0].name === 'five') {
-        return 'A pair of 5’s doubles against dealer 2 through 9, otherwise hit.'
+        return 'Never splits 5s'
       } else if (playerCards[0].name === 'four') {
         return 'A pair of 4’s splits against dealer 5 and 6, otherwise hit.'
       } else if (playerCards[0].name === 'three') {
@@ -120,9 +119,6 @@ export class GameUtilityService {
 
     return cardValue
   }
-
-
-
 }
 
 
