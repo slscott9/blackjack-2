@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build dist/blackjack-2",
+    "build": "ng build blackjack-2",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
