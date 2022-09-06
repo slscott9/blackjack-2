@@ -27,3 +27,12 @@ img {
 .bold {
     font-weight: 600;
 }
+
+.fs-24 {
+    font-size: 24px !important;
+}
+
+.img-dustin {
+    width: 300px;
+    height: 380px;
+}
