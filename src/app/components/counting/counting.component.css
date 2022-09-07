@@ -1,0 +1,19 @@
+.right-transition {
+    animation-name: right;
+    animation-duration: 2s;
+    animation-delay: 0;
+}
+
+
+@keyframes right {
+    0% {
+        transform: translateX(100%);
+
+    }
+    50% {
+      
+
+    }
+    100% {
+    }
+}

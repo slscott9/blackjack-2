@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { aces, Card, cards, cardsNoAces } from 'src/app/interfaces/type';
 import { GameUtilityService } from 'src/app/services/game-utility/game-utility.service';
+declare var $: any
 
 @Component({
   selector: 'app-perfect-strat-practice',
@@ -10,6 +10,9 @@ import { GameUtilityService } from 'src/app/services/game-utility/game-utility.s
   styleUrls: ['./perfect-strat-practice.component.css']
 })
 export class PerfectStratPracticeComponent implements OnInit {
+
+  //$('#myModal').modal('show')
+
 
   gameModeForm!: FormGroup;
   deckNumber: number = 0
@@ -187,6 +190,11 @@ export class PerfectStratPracticeComponent implements OnInit {
 
     return tempCard
 
+  }
+
+
+  toggleModal(state: string) {
+    $('#chartModal').modal(`${state}`)
   }
 
 

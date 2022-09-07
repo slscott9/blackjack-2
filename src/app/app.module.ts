@@ -7,13 +7,17 @@ import { HomeComponent } from './components/home/home.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfectStratPracticeComponent } from './components/perfect-strat-practice/perfect-strat-practice.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { CountingComponent } from './components/counting/counting.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HomeComponent,
-    PerfectStratPracticeComponent
+    PerfectStratPracticeComponent,
+    ChartsComponent,
+    CountingComponent
   ],
   imports: [
     BrowserModule,
