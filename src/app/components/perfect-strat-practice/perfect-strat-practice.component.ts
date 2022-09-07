@@ -24,6 +24,7 @@ export class PerfectStratPracticeComponent implements OnInit {
   cardCount: number = 0
   showCardCount: boolean = false;
   gameMode: string = ''
+  playerCount: number = 0
 
   aces: Card[] = []
   deckNoAces: Card[] = []
@@ -55,6 +56,7 @@ export class PerfectStratPracticeComponent implements OnInit {
   }
 
   startGame(playerCount: number, gameMode: string) {
+    this.playerCount = playerCount
     this.gameMode = gameMode;
     if(this.gameMode === 'Normal' || this.gameMode === 'Pairs') {
       this.deck = cards
@@ -64,11 +66,11 @@ export class PerfectStratPracticeComponent implements OnInit {
     }
     this.shuffle()
 
-    for (let i = 0; i < playerCount; i++) {
+    for (let i = 0; i < this.playerCount; i++) {
       this.perfectStratIndices.push(false)
     }
 
-    for (let i = 0; i < playerCount; i++) {
+    for (let i = 0; i < this.playerCount; i++) {
       if (this.gameMode === 'Normal' || this.gameMode === 'Pairs') {
         this.playerCards.push(
           [this.deck[this.deckNumber += 1]]
@@ -83,7 +85,7 @@ export class PerfectStratPracticeComponent implements OnInit {
 
     this.addDealerCard(true)
 
-    for (let i = 0; i < playerCount; i++) {
+    for (let i = 0; i < this.playerCount; i++) {
       if (this.gameMode === 'Pairs') {
         this.playerCards[i].push(
           this.getPair(this.playerCards[i])
@@ -195,6 +197,14 @@ export class PerfectStratPracticeComponent implements OnInit {
 
   toggleModal(state: string) {
     $('#chartModal').modal(`${state}`)
+  }
+
+  resetDeck() {    
+    this.deckNumber = 0;
+    this.cardCount = 0
+    this.playerCards = []
+    this.dealerCards = []
+    this.startGame(this.playerCount, this.gameMode)
   }
 
 
