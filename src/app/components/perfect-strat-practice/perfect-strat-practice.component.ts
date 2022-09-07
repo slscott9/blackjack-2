@@ -10,10 +10,6 @@ declare var $: any
   styleUrls: ['./perfect-strat-practice.component.css']
 })
 export class PerfectStratPracticeComponent implements OnInit {
-
-  //$('#myModal').modal('show')
-
-
   gameModeForm!: FormGroup;
   deckNumber: number = 0
   deck: Card[] = []
@@ -28,7 +24,6 @@ export class PerfectStratPracticeComponent implements OnInit {
 
   aces: Card[] = []
   deckNoAces: Card[] = []
-
 
   constructor(
     private fb: FormBuilder,
@@ -75,27 +70,31 @@ export class PerfectStratPracticeComponent implements OnInit {
         this.playerCards.push(
           [this.deck[this.deckNumber += 1]]
         )
+        this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
       } else if (this.gameMode === 'Soft totals') {
+        let randInt: number = this.getRandomInt(4)
         this.playerCards.push(
-          [this.aces[this.getRandomInt(4)]]
+          [this.aces[randInt]]
         )
+        this.cardCount += this.gameUtilityService.determineCount(this.aces[randInt])
       }
-      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
     }
 
     this.addDealerCard(true)
 
     for (let i = 0; i < this.playerCount; i++) {
       if (this.gameMode === 'Pairs') {
+        let pair: Card = this.getPair(this.playerCards[i])
         this.playerCards[i].push(
-          this.getPair(this.playerCards[i])
+          pair
         )
+        this.cardCount += this.gameUtilityService.determineCount(pair)
       } else if (this.gameMode === 'Normal' || this.gameMode === 'Soft totals') {
         this.playerCards[i].push(
           this.deck[this.deckNumber += 1]
         )
+        this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
       }
-      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
     }
     this.gameStarted = true;
   }
@@ -114,29 +113,29 @@ export class PerfectStratPracticeComponent implements OnInit {
         this.playerCards[i].push(
           this.deck[this.deckNumber += 1]
         )
+        this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
       } else if (this.gameMode === 'Soft totals') {
-        this.playerCards[i].push(
-          this.aces[this.getRandomInt(4)]
-        )
-      }
+        let ace = this.aces[this.getRandomInt(4)]
 
-      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
+        this.playerCards[i].push(
+          ace
+        )
+        this.cardCount += this.gameUtilityService.determineCount(ace)
+      }
     }
 
     this.addDealerCard(true)
 
     for (let i = 0; i < this.playerCards.length; i++) {
       if (this.gameMode === 'Pairs') {
-        this.playerCards[i].push(
-          this.getPair(this.playerCards[i])
-        )
+        let pair = this.getPair(this.playerCards[i])
+        this.playerCards[i].push(pair)
+        this.cardCount += this.gameUtilityService.determineCount(pair)
       } else if (this.gameMode === 'Normal' || this.gameMode === 'Soft totals') {
-        this.playerCards[i].push(
-          this.deck[this.deckNumber += 1]
-        )
+        let card = this.deck[this.deckNumber += 1]
+        this.playerCards[i].push(card)
+        this.cardCount += this.gameUtilityService.determineCount(card)
       }
-
-      this.cardCount += this.gameUtilityService.determineCount(this.deck[this.deckNumber])
     }
   }
 
