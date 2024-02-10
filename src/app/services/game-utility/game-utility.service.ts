@@ -112,19 +112,14 @@ export class GameUtilityService {
     let cardValue = 0
 
     if(card.name === 'ace' || card.value >= 10) {
-      console.log('card.name');
       
-      console.log(card.name);
             
       cardValue = -1
     } else if(card.value < 7) {
-      console.log(card.name);
       cardValue = 1
     }
 
-    console.log('returning cardValue');
     
-    console.log(cardValue);
     
     return cardValue
   }

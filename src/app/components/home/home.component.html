@@ -1,3 +1,50 @@
 <div>
-    <app-perfect-strat-practice></app-perfect-strat-practice>
+    <div class="row">
+        <div class="col-4">
+            <form [formGroup]="gameModeForm">
+                <div class="row">
+                    <div class="col">
+                        <label>Players</label>
+                        <select class="form-select" aria-label="Default select example" formControlName="players" type="number">
+                            <option selected>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>Practice mode</label>
+                        <select class="form-select" aria-label="Default select example" formControlName="mode">
+                            <option selected >Normal</option>
+                            <option>Pairs</option>
+                            <option>Soft totals</option>
+                        </select>
+                        <button class="mt-3 btn btn-primary" type="submit"
+                            (click)="startGame()" [disabled]="this.gameModeForm.get('players')?.value === '' || this.gameModeForm.get('mode')?.value === ''">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col d-flex justify-content-center">
+            <div class="row">
+                <div class="col bold fs-24">
+                    You dealer for today!
+                </div>
+                <div class="col-8">
+                    <img class="ml-5 img-fluid img-dustin" src="assets\IMG-4536.PNG">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>

@@ -45,3 +45,38 @@ img {
 .modal-dialog {
     max-width: 90% !important;
 }
+
+
+.btn-next {
+    width: 100%;
+}
+
+
+
+.main-btn-grid-container {
+    display: grid;
+    grid-template-columns: min-content min-content min-content;
+}
+
+.btn-grid-item {
+    width: 100px;
+}
+
+.dealer-card-grid-container {
+    display: grid;
+    justify-content: center;
+    columns: 1fr;
+}
+
+.player-card-grid-container {
+    display: grid;
+    justify-content: center;
+    columns: 1fr;
+}
+
+
+@media screen and (max-width: 576) {
+    .main-btn-grid-container {
+        justify-content: center;
+    }
+  }

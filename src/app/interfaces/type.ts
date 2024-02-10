@@ -5,6 +5,24 @@ export interface Card {
     imgSrc: string
 }
 
+export interface Dealer {
+  cards: Card[]
+}
+
+export interface Player {
+  showPerfectStrat: boolean;
+  perfectStrat: string,
+  cards: Card[],
+  bust: boolean,
+  blackJack: boolean,
+  turn: boolean,
+}
+
+export const TOTALS = {
+  BUST: 'BUST',
+  BLACK_JACK: 'BLACK_JACK',
+}
+
 export const cardsPairs: any = [
   { name: 'ace', imgSrc: "assets/cards/aceOfClubs.png", value: 1, valueHigh: 11},
   { name: 'ace', imgSrc: "assets/cards/aceOfDiamonds.png", value: 1, valueHigh: 11 },

@@ -1,0 +1,88 @@
+<div>
+    <!--MAIN BUTTONS-->
+    <div class="row mt-1">
+        <div class="col d-flex justify-content-start">
+            <button class="btn btn-primary btn-danger" (click)="startGame()">
+                Restart game
+            </button>
+            <button class=" ms-3 btn btn-primary btn-info" (click)="toggleModal('show')">
+                Show chart
+            </button>
+            <button class="ms-3 btn btn-primary btn-info" (click)="toggleCardCount()">
+                {{showCardCount === true ? (cardCount$| async) : 'Show card count'}}
+            </button>
+
+        </div>
+
+        <div class="col d-flex justify-content-end me-5">
+            <button class="ms-3 btn btn-primary btn-warning" (click)="dealCards()">
+                Deal cards
+            </button>
+        </div>
+    </div>
+
+    <!--DEALER CARDS-->
+    <div class="dealer-card-grid-container">
+        <div class="" *ngFor="let cards of (dealerCards$ | async); let i = index;">
+            <img src="{{cards.imgSrc}}" [ngClass]="{'right-transition' : i === cards.length -1}">
+        </div>
+    </div>
+
+    <!--PLAYER CARDS-->
+    <div class="row mt-5">
+        <div class="col " *ngFor="let player of (players$ | async); let i = index">
+            <div  class="row d-flex justify-content-center" *ngFor="let cards of player.cards; let j = index">
+                <div class="col d-flex justify-content-center">
+                    <img src="{{cards.imgSrc}}" class="right-transition">
+                </div>
+            </div>
+
+            <div class="mt-3 row d-flex justify-content-center">
+                <div class="col-sm-2 col-3 d-flex justify-content-center">
+                    <button class="btn-next btn btn-primary btn-warning" (click)="stay(i)" [disabled]="player.turn === false">Stay</button>
+                </div>
+                <div class="col-sm-2 col-3 d-flex justify-content-center">
+                    <button class="btn-next btn btn-primary btn-success" [disabled]="player.turn === false" (click)="addPlayerCard(i)">Hit</button>
+
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col d-flex justify-content-center">
+                    <button class="btn btn-primary " (click)="getPerfectStrategy(i)">{{player.showPerfectStrat === true ? player.perfectStrat: 'Perfect strategy'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-lg" tabindex="-1" role="dialog" id="chartModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" (click)="toggleModal('hide')" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <img class="img-chart img-fluid" src="assets\BJA_Basic_Strategy.png">
+                    </div>
+                    <div class="col">
+                        <img class="img-chart img-fluid" src="assets\BJA_H17-1.png">
+                    </div>
+                    <div class="col">
+                        <img class="img-chart img-fluid" src="assets\BJA_S17-1.png">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="toggleModal('hide')"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
