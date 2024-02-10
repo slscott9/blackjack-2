@@ -129,7 +129,7 @@ export class PerfectStratUtilityService {
       } else if (playerTotal === 8) {
         return '8 always hits.'
       } else {
-        return 'hit'
+        return '8 below always hits'
       }
     }
 
