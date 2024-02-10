@@ -1,23 +1,36 @@
 <div>
     <!--MAIN BUTTONS-->
-    <div class="row mt-1">
-        <div class="col d-flex justify-content-start">
-            <button class="btn btn-primary btn-danger" (click)="startGame()">
-                Restart game
-            </button>
-            <button class=" ms-3 btn btn-primary btn-info" (click)="toggleModal('show')">
-                Show chart
-            </button>
-            <button class="ms-3 btn btn-primary btn-info" (click)="toggleCardCount()">
-                {{showCardCount === true ? (cardCount$| async) : 'Show card count'}}
-            </button>
+    <div class="row mt-1 mb-4">
 
-        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <button class=" btn-action btn btn-primary btn-danger" (click)="startGame()">
+                        Restart game
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-end pe-sm-3">
 
-        <div class="col d-flex justify-content-end me-5">
-            <button class="ms-3 btn btn-primary btn-warning" (click)="dealCards()">
-                Deal cards
-            </button>
+
+                    <button class=" btn-action btn btn-primary btn-warning" (click)="dealCards()">
+                        Deal cards
+                    </button>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col ">
+                    <button class=" btn-action btn btn-primary btn-info" (click)="toggleModal('show')">
+                        Show chart
+                    </button>
+
+                </div>
+                <div class="col d-flex justify-content-end pe-sm-3">
+                    <button class=" btn-action btn btn-primary btn-info" (click)="toggleCardCount()">
+                        {{showCardCount === true ? (cardCount$| async) : 'Show card count'}}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -29,9 +42,40 @@
     </div>
 
     <!--PLAYER CARDS-->
-    <div class="row mt-5">
-        <div class="col " *ngFor="let player of (players$ | async); let i = index">
-            <div  class="row d-flex justify-content-center" *ngFor="let cards of player.cards; let j = index">
+    <div class="row mt-5 d-flex justify-content-center">
+        <div class="col-sm-5 " *ngFor="let player of (players$ | async); let i = index">
+
+            <div class="row mt-5">
+                <div class="col " *ngFor="let cards of player.cards; let j = index">
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <img src="{{cards.imgSrc}}" class="right-transition">
+
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col d-flex justify-content-center">
+                    <div class="col-sm-2 col-3 d-flex justify-content-center">
+                        <button class="btn-next btn btn-primary btn-warning" (click)="stay(i)" [disabled]="player.turn === false">Stay</button>
+                    </div>
+                    <div class="col-sm-2 col-3 d-flex justify-content-center">
+                        <button class="btn-next btn btn-primary btn-success" [disabled]="player.turn === false" (click)="addPlayerCard(i)">Hit</button>
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center mt-2">
+                <div class="col">
+                    <div class="col d-flex justify-content-center">
+                        <button class="btn btn-primary " (click)="getPerfectStrategy(i)">{{player.showPerfectStrat === true ? player.perfectStrat: 'Perfect strategy'}}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div  class="row d-flex justify-content-center" *ngFor="let cards of player.cards; let j = index">
                 <div class="col d-flex justify-content-center">
                     <img src="{{cards.imgSrc}}" class="right-transition">
                 </div>
@@ -51,7 +95,7 @@
                 <div class="col d-flex justify-content-center">
                     <button class="btn btn-primary " (click)="getPerfectStrategy(i)">{{player.showPerfectStrat === true ? player.perfectStrat: 'Perfect strategy'}}</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
