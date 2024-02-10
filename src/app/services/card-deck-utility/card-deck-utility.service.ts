@@ -92,6 +92,7 @@ export class CardDeckUtilityService {
         dealer.cards.push(nextCard);
       } else {
         players[i - 1].cards.push(nextCard);
+        this.getPerfectStrategy(i - 1)
       }
     }
 
@@ -121,6 +122,7 @@ export class CardDeckUtilityService {
     let nextCard = this.cardDeck.shift();
     this.cardCount = this.cardCount += nextCard.value;
     players[index].cards.push(nextCard);
+    this.getPerfectStrategy(index)
     this._players.next(this.checkForBust(players, index));
   }
 
@@ -157,15 +159,18 @@ export class CardDeckUtilityService {
 
   getPerfectStrategy(index: number) {
     let players: Player[] = this.players;
-    players[index].showPerfectStrat = !players[index].showPerfectStrat;
     players[index].perfectStrat = this.perfectStratUtility.determinePerfectStrategy(this.players[index].cards)
     this.players = players;
   }
 
-
-  stay() {
-
+  togglePerfectStrat(index: number) {
+    let players = this.players;
+    players[index].showPerfectStrat = !players[index].showPerfectStrat;
+    this.players = players;
   }
+
+
+
 
   
 }

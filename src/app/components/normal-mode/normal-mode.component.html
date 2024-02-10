@@ -71,31 +71,10 @@
             <div class="row d-flex justify-content-center mt-2">
                 <div class="col">
                     <div class="col d-flex justify-content-center">
-                        <button class="btn btn-primary " (click)="getPerfectStrategy(i)">{{player.showPerfectStrat === true ? player.perfectStrat: 'Perfect strategy'}}</button>
+                        <button class="btn btn-primary " (click)="togglePlayerPerfectStrat(i)">{{player.showPerfectStrat === true ? player.perfectStrat: 'Perfect strategy'}}</button>
                     </div>
                 </div>
             </div>
-            <!-- <div  class="row d-flex justify-content-center" *ngFor="let cards of player.cards; let j = index">
-                <div class="col d-flex justify-content-center">
-                    <img src="{{cards.imgSrc}}" class="right-transition">
-                </div>
-            </div>
-
-            <div class="mt-3 row d-flex justify-content-center">
-                <div class="col-sm-2 col-3 d-flex justify-content-center">
-                    <button class="btn-next btn btn-primary btn-warning" (click)="stay(i)" [disabled]="player.turn === false">Stay</button>
-                </div>
-                <div class="col-sm-2 col-3 d-flex justify-content-center">
-                    <button class="btn-next btn btn-primary btn-success" [disabled]="player.turn === false" (click)="addPlayerCard(i)">Hit</button>
-
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col d-flex justify-content-center">
-                    <button class="btn btn-primary " (click)="getPerfectStrategy(i)">{{player.showPerfectStrat === true ? player.perfectStrat: 'Perfect strategy'}}</button>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

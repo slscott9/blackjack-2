@@ -71,4 +71,8 @@ export class NormalModeComponent implements OnInit {
     this.cardDeckUtility.dealCards()
   }
 
+  togglePlayerPerfectStrat(index: number) {
+    this.cardDeckUtility.togglePerfectStrat(index)
+  } 
+
 }
