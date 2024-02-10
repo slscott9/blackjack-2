@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, distinctUntilChanged, map, switchMap } from 'rxjs';
-import { Card, Dealer } from 'src/app/interfaces/type';
+import { Card, Dealer, Player } from 'src/app/interfaces/type';
 import { CardDeckUtilityService } from 'src/app/services/card-deck-utility/card-deck-utility.service';
 declare var $: any
 
@@ -24,6 +24,7 @@ export class NormalModeComponent implements OnInit {
   showCardCount: boolean = false;
 
   players$ = this.cardDeckUtility.players$
+
 
 
   constructor(
@@ -52,7 +53,7 @@ export class NormalModeComponent implements OnInit {
   }
 
   getPerfectStrategy(index: number) {
-    this.cardDeckUtility.getPerfectStrategy(index)
+    return this.cardDeckUtility.setPerfectStrategy(index)
   }
 
   toggleCardCount() {
@@ -72,7 +73,8 @@ export class NormalModeComponent implements OnInit {
   }
 
   togglePlayerPerfectStrat(index: number) {
-    this.cardDeckUtility.togglePerfectStrat(index)
+    this.cardDeckUtility.togglePerfectStrat(index);
   } 
+
 
 }

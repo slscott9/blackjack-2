@@ -82,7 +82,31 @@ export class PerfectStratUtilityService {
             return 'Soft 13 (A,2) doubles against dealer 5 through 6, otherwise hit.'
           }
         }
-      } 
+      } else {
+        if (playerTotal >= 17) {
+          return '17 and up always stands.'
+        } else if (playerTotal === 16) {
+          return '16 stands against dealer 2 through 6, otherwise hit.'
+        } else if (playerTotal === 15) {
+          return '15 stands against dealer 2 through 6, otherwise hit.'
+        } else if (playerTotal === 14) {
+          return '14 stands against dealer 2 through 6, otherwise hit.'
+        } else if (playerTotal === 13) {
+          return '13 stands against dealer 2 through 6, otherwise hit.'
+        } else if (playerTotal === 12) {
+          return '12 stands against dealer 4 through 6, otherwise hit.'
+        } else if (playerTotal === 11) {
+          return '11 always doubles.'
+        } else if (playerTotal === 10) {
+          return '10 doubles against dealer 2 through 9 otherwise hit.'
+        } else if (playerTotal === 9) {
+          return '9 doubles against dealer 3 through 6 otherwise hit.'
+        } else if (playerTotal === 8) {
+          return '8 always hits.'
+        } else {
+          return 'hit'
+        }
+      }
     } else { //Hard totals      
       if (playerTotal >= 17) {
         return '17 and up always stands.'
