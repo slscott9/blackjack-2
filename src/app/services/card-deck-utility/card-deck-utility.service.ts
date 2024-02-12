@@ -86,12 +86,14 @@ export class CardDeckUtilityService {
 
     for(let i = playersPlusDealer - 1; i >= 0; i--) {
       let nextCard = cardDeck.shift();
+      let nextNextCard = cardDeck.shift()
       this.cardCount = this.cardCount += nextCard.value;
     
       if(i === 0) {
         dealer.cards.push(nextCard);
       } else {
         players[i - 1].cards.push(nextCard);
+        players[i - 1].cards.push(nextNextCard);
         this.setPerfectStrategy(i - 1)
       }
     }
